@@ -1,0 +1,143 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}<title>افزودن پزشک</title>{% endblock title %}
+{% block container %}
+    <div class="row">
+        <div class="col-lg-12 m-t-md">
+            <div class="inbox float-e-margins">
+                <div class="ibox-content">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="doctor_name" class="col-sm-4"> نام پزشک </label>
+                                    <input id="doctor_name" value="{{ form_data.doctor_name }}" name="doctor_name"
+                                           type="text" class="form-control col-sm-8">
+                                    {% for error in errors.doctor_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="expertise" class="col-sm-4"> تخصص پزشک </label>
+                                    <select id="expertise" name="expertise" class="form-control col-sm-8">
+                                        <option value="999">-----</option>
+                                        {% for expertise in doctor_expertises %}
+                                            <option value="{{ expertise.id }}">
+                                                {{ expertise.expert_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.expertise %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="phone_number" class="col-sm-4"> تلفن همراه </label>
+                                    <input id="phone_number" value="{{ form_data.phone_number }}" name="phone_number"
+                                           type="text" class="form-control col-sm-8">
+                                    {% for error in errors.phone_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="home_phone" class="col-sm-4"> تلفن منزل </label>
+                                    <input id="home_phone" value="{{ form_data.home_phone }}" name="home_phone"
+                                           type="text" class="form-control col-sm-8">
+                                    {% for error in errors.home_phone %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="medical_system_code" class="col-sm-4"> کد نظام پزشکی </label>
+                                    <input id="medical_system_code" value="{{ form_data.medical_system_code }}"
+                                           name="medical_system_code" type="text" class="form-control col-sm-8">
+                                    {% for error in errors.medical_system_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="province" class="col-sm-4"> استان </label>
+                                    <select onchange="findCity()" id="province" name="province"
+                                            class="form-control col-sm-8">
+                                        <option value="999">-----</option>
+                                        {% for province in provinces %}
+                                            <option value="{{ province.id }}">
+                                                {{ province.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.province %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="city" class="col-sm-4"> شهر </label>
+                                    <select id="city" name="city" class="form-control col-sm-8">
+                                        <option value="999">-----</option>
+                                    </select>
+                                    {% for error in errors.city %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="address" class="col-sm-4"> آدرس </label>
+                                    <input id="address" value="{{ form_data.address }}" name="address" type="text"
+                                           class="form-control col-sm-8">
+                                    {% for error in errors.address %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <button class="btn btn-white col-sm-2" type="submit"> لغو</button>
+                                    <button class="btn btn-primary col-sm-2" type="submit"> افزودن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,731 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}<title>جزيبات بیمار</title>{% endblock title %}
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-dark.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-latoja.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-lightorang.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-melon.css' %}">
+{% endblock %}
+{% block container %}
+    <div class="row">
+        <div class="col-lg-12 m-t-sm m-b-md">
+            <div class="inbox float-e-margins">
+                <div class="ibox-content">
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> زبان </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.reception_language }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> نام </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.first_name }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> نام خانوادگی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.last_name }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تاریخ تولد </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.birth_day }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کد نظام پزشکی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.medical_system_code }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="">آدرس </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.address }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> نام پدر </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.father_name }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تلفن منزل </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.home_phone }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> بیمه پابه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.insurance }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> صندوق بیمه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.insurance_fund }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره بیمه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.insurance_id }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> ملیت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.nationality }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کدملی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.certificate_number }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره شناسنامه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.birth_certificate_id }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> عکس بیمار </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.patient_image }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره پرونده </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.file_number }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تلفن همراه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.phone_number }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کد سیستمی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.system_code }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کد اسناد پزشکی </label>
+                                    <input type="text"
+                                           class="form-control " disabled
+                                           value="{{ patient.medical_documents_code }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> جنسیت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.gender }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> وضعیت تاهل </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.marital_status }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شغل </label>
+                                    <input type="text" class="form-control " disabled value="{{ patient.job }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تعداد فرزند </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.children_count }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> روش ثبت نام </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.registration_method }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> بیمه تکمیلی یک </label>
+                                    <input type="text"
+                                           class="form-control " disabled
+                                           value="{{ patient.supplementary_insurance_1 }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> بیمه تکمیلی دو </label>
+                                    <input type="text"
+                                           class="form-control " disabled
+                                           value="{{ patient.supplementary_insurance_2 }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تاریخ اعتبار بیمه پایه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.insurance_credit }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تاریخ اعتبار بیمه تکمیلی </label>
+                                    <input type="text"
+                                           class="form-control " disabled
+                                           value="{{ patient.supplementary_insurance_credit }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> پزشک معالج </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.healer_doctor }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> پزشک رابط </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.middle_doctor }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> پزشک معرف </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.reagent_doctor }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> پزشک ارجاعی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.referral_doctor }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کشور </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.country }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> استان </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.province }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شهر </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.city }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> علت مراجعه اولیه </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.reason_referral }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تشخیص </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.recognition }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> توضیحات </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.description }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره کارت بانکی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.cart_number }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> اسم صاحب حساب </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.account_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تاریخ تشکیل پرونده </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.date_of_filing }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تاریخ آپدیت پرونده </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.file_update_date }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کد پستی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.postal_code }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> موقعیت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.position }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> نحوه ورود به مرکز </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.center_enter }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> مقطع تحصیلی </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.education_section }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کد ملی همسر </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.spouse_national_code }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> توضیح شغل </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.job_description }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> نام مادر </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.mother_name }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> نام خانوادگی مادر </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.mother_last_name }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> ساعت تولد </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.birth_day_hour }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> دقت تاریخ تولد </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.birth_day_accuracy }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> تاریخ فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_day }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> ساعت فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_hour }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> محل فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_place }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> علت فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_reason }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> دکتر فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_doctor }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> دکتر فوت دو </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_doctor2 }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> وضعیت تشخیص فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_position }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> درمان تا فوت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.death_to_heal }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> بخش </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.part }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره بخش </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.part_number }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره اتاق </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.room_number }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> شماره تخت </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.bed_number }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> کد ارجاع </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.referral_code }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class=""> دلیل ارجاع </label>
+                                    <input type="text" class="form-control " disabled
+                                           value="{{ patient.referral_description }}">
+                                </div>
+                            </div>
+                            {#                            <div class="col-sm-3">#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label class=""> شهر </label>#}
+                            {#                                    <input type="text" class="form-control ">#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            {#                            <div class="col-sm-3">#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label class=""> آدرس </label>#}
+                            {#                                    <input type="text" class="form-control ">#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <button class="btn btn-white col-sm-2" type="submit"> لغو</button>
+                                    <button class="btn btn-primary col-sm-2" type="submit"> افزودن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/persianDatepicker.min.js' %}"></script>
+    <script>
+        {% if form_data.province %}
+            findProvince(province_name = "{{ form_data.province }}")
+        {% endif %}
+
+        function findProvince(province_name = "") {
+            document.getElementById("province").value = ''
+            document.getElementById("city").value = ''
+            const country = document.getElementById("country")
+            const province = document.getElementById("province_list")
+            let country_name = country.value
+
+            performAjaxRequest("{% url 'find_province' %}", {'country_name': country_name}, function (response) {
+                province.innerHTML = ''
+                for (let i = 0; i < response.length; i++) {
+                    if (province_name == response[i].name) {
+                        province.innerHTML += `
+                            <option selected value="${response[i].name}">${response[i].name}</option>
+                        `
+                    } else {
+                        province.innerHTML += `
+                            <option value="${response[i].name}">${response[i].name}</option>
+                        `
+                    }
+                }
+            })
+        }
+
+        {% if form_data.city %}
+            findCity(p_name = "{{ form_data.province }}", city_name = "{{ form_data.city }}")
+        {% endif %}
+
+        function findCity(p_name = "", city_name = "") {
+            document.getElementById("city").value = ''
+            const province = document.getElementById("province")
+            const city = document.getElementById("city_list")
+            let province_name = province.value
+
+            if (p_name !== "") {
+                province_name = p_name
+            }
+
+            performAjaxRequest("{% url 'find_city' %}", {'province_name': province_name}, function (response) {
+                city.innerHTML = ''
+                for (let i = 0; i < response.length; i++) {
+                    if (city_name == response[i].name) {
+                        city.innerHTML += `
+                            <option selected value="${response[i].name}">${response[i].name}</option>
+                        `
+                    } else {
+                        city.innerHTML += `
+                            <option value="${response[i].name}">${response[i].name}</option>
+                        `
+                    }
+
+                }
+            })
+        }
+
+        $(function () {
+            $("#birthday,#insurance_credit,#supplementary_insurance_credit,#date_of_filing,#file_update_date,#death_day").persianDatepicker();
+        });
+        $("#birthday,#insurance_credit,#supplementary_insurance_credit,#date_of_filing,#file_update_date,#death_day").persianDatepicker({
+
+            // month names
+            months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+
+            // week names
+            dowTitle: ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"],
+
+            // short week names
+            shortDowTitle: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
+
+            // shows Gregorian date
+            showGregorianDate: false,
+
+            // persian numbers
+            persianNumbers: true,
+            /*
+            YYYY  =>   year             : 1394  -  ...
+            MM    =>   month            : 1     -  12
+            DD    =>   day              : 1     -  30|31
+            0M    =>   month with zero  : 01    -  12
+            0D    =>   day  with zero   : 01    -  30|31
+            hh    =>   hour             : 0     -  23
+            mm    =>   minute           : 0     -  59
+            ss    =>   second           : 0     -  59
+            ms    =>   milisecond       : 0     -  3 digit random time of cpu like 359
+            NM    =>   name of month    : اسفند-فروردین
+            DW    =>   day of week      : 0     -  6
+            ND    =>   name of day      : جمعه-شنبه
+            */
+            formatDate: "YYYY/MM/DD",
+
+            // selected before
+            selectedBefore: false,
+
+            // '1394/11/12'
+            selectedDate: null,
+
+            // '1394/11/12'
+            startDate: null,
+
+            // '1395/5/5'
+            endDate: null,
+
+            // prev/next arrows
+            prevArrow: '\u25c4',
+            nextArrow: '\u25ba',
+
+            // 'dark', 'latoja', 'lightorange', 'melon'
+            theme: 'default',
+
+            // always show
+            alwaysShow: !1,
+
+            // selectable years
+            selectableYears: null,
+
+            // selectable months
+            selectableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+
+            // in pixles
+            cellWidth: 25,
+            cellHeight: 20,
+            fontSize: 13,
+
+            // RTL mode
+            isRTL: false,
+
+            // close on blur
+            closeOnBlur: true,
+
+            // position of the calendar
+            calendarPosition: {
+                x: 0,
+                y: 0,
+            },
+
+            // callback functions
+            onShow: function () {
+            },
+            onHide: function () {
+            },
+            onSelect: function () {
+            },
+            onRender: function () {
+            }
+
+        });
+    </script>
+{% endblock %}

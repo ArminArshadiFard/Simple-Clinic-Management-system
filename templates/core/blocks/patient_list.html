@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}<title>لیست بیماران</title>{% endblock title %}
+{% block container %}
+
+    <div class="row">
+        <table class="table table-striped table-bordered table-hover dataTables-example m-sm">
+            <thead>
+            <tr>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>شماره بخش</th>
+                <th>شماره اتاق</th>
+                <th>شماره تخت</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for patient in patients %}
+                <tr onclick="patient_detail_page({{ patient.id }})">
+                    <td>{{ patient.first_name }}</td>
+                    <td>{{ patient.last_name }}</td>
+                    <td>{{ patient.part_number }}</td>
+                    <td>{{ patient.room_number }}</td>
+                    <td>{{ patient.bed_number }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        const pathname = window.location.pathname
+        function patient_detail_page(id) {
+            var redirect_path = pathname + id + "/"
+            window.location.href = redirect_path
+        }
+    </script>
+{% endblock %}

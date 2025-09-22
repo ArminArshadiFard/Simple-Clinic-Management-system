@@ -1,0 +1,1330 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}<title>افزودن بیمار</title>{% endblock title %}
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-dark.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-latoja.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-lightorang.css' %}">
+    <link rel="stylesheet" href="{% static 'css/persianDatepicker-melon.css' %}">
+{% endblock %}
+{% block container %}
+
+    <div class="row">
+        <div class="col-lg-12 m-t-sm m-b-md">
+            <div class="inbox float-e-margins">
+                <div class="ibox-content">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="language" class=""> زبان </label>
+                                    <select id="language" name="language" class="form-control">
+                                        <option value="999">انتخاب زبان</option>
+                                        {% for index in language %}
+                                            <option {% if form_data.language == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.language }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.language %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="first_name" class=""> نام </label>
+                                    <input autocomplete="off" id="first_name" value="{{ form_data.first_name }}"
+                                           name="first_name"
+                                           type="text" class="form-control ">
+                                    {% for error in errors.first_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="last_name" class=""> نام خانوادگی </label>
+                                    <input autocomplete="off" id="last_name" value="{{ form_data.last_name }}"
+                                           name="last_name" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.last_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="birthday" class=""> تاریخ تولد </label>
+                                    <input autocomplete="off" id="birthday" value="{{ form_data.birthday }}"
+                                           name="birthday" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.birthday %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="medical_system_code" class=""> کد نظام پزشکی </label>
+                                    <input autocomplete="off" id="medical_system_code"
+                                           value="{{ form_data.medical_system_code }}"
+                                           name="medical_system_code" type="number"
+                                           class="form-control ">
+                                    {% for error in errors.medical_system_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="address" class="">آدرس </label>
+                                    <input autocomplete="off" id="address" value="{{ form_data.address }}"
+                                           name="address" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.address %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="father_name" class=""> نام پدر </label>
+                                    <input autocomplete="off" id="father_name" value="{{ form_data.father_name }}"
+                                           name="father_name"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.father_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="home_phone" class=""> تلفن منزل </label>
+                                    <input autocomplete="off" id="home_phone" value="{{ form_data.home_phone }}"
+                                           name="home_phone"
+                                           type="number" class="form-control ">
+                                    {% for error in errors.home_phone %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="insurance" class=""> بیمه پابه </label>
+                                    <select id="insurance" name="insurance" class="form-control ">
+                                        <option value="999">انتخاب بیمه</option>
+                                        {% for index in insurance %}
+                                            <option {% if form_data.insurance == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.insurance_type }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.insurance %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="insurance_fund" class=""> صندوق بیمه </label>
+                                    <select id="insurance_fund" name="insurance_fund" class="form-control ">
+                                        <option value="999">انتخاب صندوق بیمه</option>
+                                        {% for index in insurance_fund %}
+                                            <option {% if form_data.insurance_fund == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.insurance_fund %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="insurance_number" class=""> شماره بیمه </label>
+                                    <input autocomplete="off" id="insurance_number"
+                                           value="{{ form_data.insurance_number }}"
+                                           name="insurance_number"
+                                           type="number"
+                                           class="form-control ">
+                                    {% for error in errors.insurance_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="nationality" class=""> ملیت </label>
+                                    <select id="nationality" name="nationality" class="form-control ">
+                                        <option value="999">انتخاب ملیت</option>
+                                        {% for index in nationality %}
+                                            <option {% if form_data.nationality == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.nationality %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="certificate_number" class=""> کدملی </label>
+                                    <input autocomplete="off" id="certificate_number"
+                                           value="{{ form_data.certificate_number }}"
+                                           name="certificate_number" type="number"
+                                           class="form-control ">
+                                    {% for error in errors.certificate_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="birth_certificate_id" class=""> شماره شناسنامه </label>
+                                    <input autocomplete="off" id="birth_certificate_id"
+                                           value="{{ form_data.birth_certificate_id }}"
+                                           name="birth_certificate_id" type="number"
+                                           class="form-control ">
+                                    {% for error in errors.birth_certificate_id %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="patient_image" class=""> عکس بیمار </label>
+                                    <input autocomplete="off" id="patient_image" value="{{ form_data.patient_image }}"
+                                           name="patient_image"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.patient_image %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="file_number" class=""> شماره پرونده </label>
+                                    <input autocomplete="off" id="file_number" value="{{ form_data.file_number }}"
+                                           name="file_number"
+                                           type="number"
+                                           class="form-control ">
+                                    {% for error in errors.file_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="phone_number" class=""> تلفن همراه </label>
+                                    <input autocomplete="off" id="phone_number" value="{{ form_data.phone_number }}"
+                                           name="phone_number"
+                                           type="number"
+                                           class="form-control ">
+                                    {% for error in errors.phone_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="system_code" class=""> کد سیستمی </label>
+                                    <input autocomplete="off" id="system_code" value="{{ form_data.system_code }}"
+                                           name="system_code"
+                                           type="number"
+                                           class="form-control ">
+                                    {% for error in errors.system_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="medical_documents_code" class=""> کد اسناد پزشکی </label>
+                                    <input autocomplete="off" id="medical_documents_code"
+                                           value="{{ form_data.medical_documents_code }}"
+                                           name="medical_documents_code" type="number"
+                                           class="form-control ">
+                                    {% for error in errors.medical_documents_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="gender" class=""> جنسیت </label>
+                                    <select id="gender" name="gender"
+                                            class="form-control ">
+                                        <option value="999">انتخاب جنسیت</option>
+                                        {% for index in gender %}
+                                            <option {% if form_data.gender == index.0|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.0 }}">{{ index.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.gender %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="marital_status" class=""> وضعیت تاهل </label>
+                                    <select id="marital_status" name="marital_status" class="form-control ">
+                                        <option value="999">وضعیت تاهل</option>
+                                        {% for index in marital_status %}
+                                            <option {% if form_data.marital_status == index.0|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.0 }}">{{ index.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.marital_status %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="job" class=""> شغل </label>
+                                    <select id="job" name="job" class="form-control ">
+                                        <option value="999">انتخاب شغل</option>
+                                        {% for index in job %}
+                                            <option {% if form_data.job == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.job %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="children_count" class=""> تعداد فرزند </label>
+                                    <input autocomplete="off" id="children_count" value="{{ form_data.children_count }}"
+                                           name="children_count" type="number"
+                                           class="form-control ">
+                                    {% for error in errors.children_count %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="registration_method" class=""> روش ثبت نام </label>
+                                    <select id="registration_method" name="registration_method"
+                                            class="form-control ">
+                                        <option value="999">انتخاب روش ثبت نام</option>
+                                        {% for index in registration_method %}
+                                            <option {% if form_data.registration_method == index.0|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.0 }}">{{ index.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.registration_method %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="supplementary_insurance_1" class=""> بیمه تکمیلی یک </label>
+                                    <select id="supplementary_insurance_1" name="supplementary_insurance_1"
+                                            class="form-control ">
+                                        <option value="999">انتخاب بیمه تکمیلی یک</option>
+                                        {% for index in supplementary_insurance_1 %}
+                                            <option {% if form_data.supplementary_insurance_1 == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.supplementary_insurance_1 }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.supplementary_insurance_1 %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="supplementary_insurance_2" class=""> بیمه تکمیلی دو </label>
+                                    <select id="supplementary_insurance_2" name="supplementary_insurance_2"
+                                            class="form-control ">
+                                        <option value="999">انتخاب بیمه تکمیلی دو</option>
+                                        {% for index in supplementary_insurance_2 %}
+                                            <option {% if form_data.supplementary_insurance_2 == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.supplementary_insurance_2 }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.supplementary_insurance_2 %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="insurance_credit" class=""> تاریخ اعتبار بیمه پایه </label>
+                                    <input autocomplete="off" id="insurance_credit"
+                                           value="{{ form_data.insurance_credit }}"
+                                           name="insurance_credit" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.insurance_credit %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="supplementary_insurance_credit" class=""> تاریخ اعتبار بیمه
+                                        تکمیلی </label>
+                                    <input autocomplete="off" id="supplementary_insurance_credit"
+                                           value="{{ form_data.supplementary_insurance_credit }}"
+                                           name="supplementary_insurance_credit"
+                                           type="text" class="form-control ">
+                                    {% for error in errors.supplementary_insurance_credit %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="healer_doctor" class=""> پزشک معالج </label>
+                                    <input autocomplete="off" id="healer_doctor" value="{{ form_data.healer_doctor }}"
+                                           name="healer_doctor"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.healer_doctor %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="middle_doctor" class=""> پزشک رابط </label>
+                                    <input autocomplete="off" id="middle_doctor" value="{{ form_data.middle_doctor }}"
+                                           name="middle_doctor"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.middle_doctor %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="reagent_doctor" class=""> پزشک معرف </label>
+                                    <input autocomplete="off" id="reagent_doctor" value="{{ form_data.reagent_doctor }}"
+                                           name="reagent_doctor" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.reagent_doctor %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="referral_doctor" class=""> پزشک ارجاعی </label>
+                                    <input autocomplete="off" id="referral_doctor"
+                                           value="{{ form_data.referral_doctor }}"
+                                           name="referral_doctor" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.referral_doctor %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="country" class=""> کشور </label>
+                                    {#                                    <select onchange="findProvince()" id="country" name="country"#}
+                                    {#                                            class="form-control ">#}
+                                    {#                                        <option value="999">انتخاب کشور</option>#}
+                                    {#                                        {% for country in countries %}#}
+                                    {#                                            <option {% if form_data.country == country.name %}selected{% endif %}#}
+                                    {#                                                    value="{{ country.name }}">#}
+                                    {#                                                {{ country.name }}#}
+                                    {#                                            </option>#}
+                                    {#                                        {% endfor %}#}
+                                    {#                                    </select>#}
+
+
+                                    <input list="country_list" onchange="findProvince()" autocomplete="off"
+                                           name="country" id="country"
+                                            {% if form_data.country %}
+                                           value="{{ form_data.country }}" {% else %}
+                                           placeholder="انتخاب کنید" {% endif %} class="form-control">
+                                    <datalist id="country_list">
+                                        {% for country in countries %}
+                                            <option value="{{ country.name }}">
+                                            </option>
+                                        {% endfor %}
+                                    </datalist>
+                                    {% for error in errors.country %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="province" class=""> استان </label>
+                                    {#                                    <select onchange="findCity()" id="province" name="province"#}
+                                    {#                                            class="form-control ">#}
+                                    {#                                        <option value="999">انتخاب استان</option>#}
+                                    {#                                    </select>#}
+
+                                    <input list="province_list" onchange="findCity()" autocomplete="off" name="province"
+                                           id="province"
+                                            {% if form_data.province %}
+                                           value="{{ form_data.province }}" {% else %}
+                                           placeholder="انتخاب کنید" {% endif %} class="form-control">
+                                    <datalist id="province_list">
+                                    </datalist>
+                                    {% for error in errors.province %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="city" class=""> شهر </label>
+                                    {#                                    <select id="city" name="city" class="form-control ">#}
+                                    {#                                        <option value="999">انتخاب شهر</option>#}
+                                    {#                                    </select>#}
+
+
+                                    <input list="city_list" autocomplete="off" name="city" id="city"
+                                            {% if form_data.city %}
+                                           value="{{ form_data.province }}" {% else %}
+                                           placeholder="انتخاب کنید" {% endif %} class="form-control">
+                                    <datalist id="city_list">
+                                    </datalist>
+                                    {% for error in errors.city %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="referral_reason" class=""> علت مراجعه اولیه </label>
+                                    <input autocomplete="off" id="referral_reason"
+                                           value="{{ form_data.referral_reason }}"
+                                           name="referral_reason" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.referral_reason %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="recognition" class=""> تشخیص </label>
+                                    <input autocomplete="off" id="recognition" value="{{ form_data.recognition }}"
+                                           name="recognition"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.recognition %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="description" class=""> توضیحات </label>
+                                    <input autocomplete="off" id="description" value="{{ form_data.description }}"
+                                           name="description"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.description %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="cart_number" class=""> شماره کارت بانکی </label>
+                                    <input autocomplete="off" id="cart_number" value="{{ form_data.cart_number }}"
+                                           name="cart_number"
+                                           type="number"
+                                           class="form-control ">
+                                    {% for error in errors.cart_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="account_name" class=""> اسم صاحب حساب </label>
+                                    <input autocomplete="off" id="account_name" value="{{ form_data.account_name }}"
+                                           name="account_name"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.account_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="date_of_filing" class=""> تاریخ تشکیل پرونده </label>
+                                    <input autocomplete="off" id="date_of_filing" value="{{ form_data.date_of_filing }}"
+                                           name="date_of_filing" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.date_of_filing %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="file_update_date" class=""> تاریخ آپدیت پرونده </label>
+                                    <input autocomplete="off" id="file_update_date"
+                                           value="{{ form_data.file_update_date }}"
+                                           name="file_update_date" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.file_update_date %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="postal_code" class=""> کد پستی </label>
+                                    <input autocomplete="off" id="postal_code" value="{{ form_data.postal_code }}"
+                                           name="postal_code"
+                                           type="number"
+                                           class="form-control ">
+                                    {% for error in errors.postal_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="position" class=""> موقعیت </label>
+                                    <input autocomplete="off" id="position" value="{{ form_data.position }}"
+                                           name="position" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.position %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="center_enter" class=""> نحوه ورود به مرکز </label>
+                                    <select id="center_enter" name="center_enter" class="form-control ">
+                                        <option value="999">انتخاب کنید</option>
+                                        {% for index in center_enter %}
+                                            <option {% if form_data.center_enter == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.enter_to_center }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.center_enter %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="education_section" class=""> مقطع تحصیلی </label>
+                                    <select id="education_section" name="education_section"
+                                            class="form-control ">
+                                        <option value="999">انتخاب مقطع تحصیلی</option>
+                                        {% for index in education_section %}
+                                            <option {% if form_data.education_section == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.educationـsection }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.education_section %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="spouse_national_code" class=""> کد ملی همسر </label>
+                                    <input autocomplete="off" id="spouse_national_code"
+                                           value="{{ form_data.spouse_national_code }}"
+                                           name="spouse_national_code" type="number"
+                                           class="form-control ">
+                                    {% for error in errors.spouse_national_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="job_description" class=""> توضیح شغل </label>
+                                    <input autocomplete="off" id="job_description"
+                                           value="{{ form_data.job_description }}"
+                                           name="job_description" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.job_description %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="mother_name" class=""> نام مادر </label>
+                                    <input autocomplete="off" id="mother_name" value="{{ form_data.mother_name }}"
+                                           name="mother_name"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.mother_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="mother_lastname" class=""> نام خانوادگی مادر </label>
+                                    <input autocomplete="off" id="mother_lastname"
+                                           value="{{ form_data.mother_lastname }}"
+                                           name="mother_lastname" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.mother_lastname %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="birth_day_hour" class=""> ساعت تولد </label>
+                                    <input autocomplete="off" id="birth_day_hour" value="{{ form_data.birth_day_hour }}"
+                                           name="birth_day_hour" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.birth_day_hour %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="birth_day_accuracy" class=""> دقت تاریخ تولد </label>
+                                    <input autocomplete="off" id="birth_day_accuracy"
+                                           value="{{ form_data.birth_day_accuracy }}"
+                                           name="birth_day_accuracy" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.birth_day_accuracy %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_day" class=""> تاریخ فوت </label>
+                                    <input autocomplete="off" id="death_day" value="{{ form_data.death_day }}"
+                                           name="death_day" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.death_day %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_hour" class=""> ساعت فوت </label>
+                                    <input autocomplete="off" id="death_hour" value="{{ form_data.death_hour }}"
+                                           name="death_hour"
+                                           type="text" class="form-control ">
+                                    {% for error in errors.death_hour %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_place" class=""> محل فوت </label>
+                                    <select id="death_place" name="death_place" class="form-control ">
+                                        <option value="999">انتخاب محل فوت</option>
+                                        {% for index in death_place %}
+                                            <option {% if form_data.death_place == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.death_place %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_reason" class=""> علت فوت </label>
+                                    <select id="death_reason" name="death_reason" class="form-control ">
+                                        <option value="999">انتخاب علت فوت</option>
+                                        {% for index in death_reason %}
+                                            <option {% if form_data.death_reason == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.death_reason }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.death_reason %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_doctor" class=""> دکتر فوت </label>
+                                    <input autocomplete="off" id="death_doctor" value="{{ form_data.death_doctor }}"
+                                           name="death_doctor"
+                                           type="text"
+                                           class="form-control ">
+                                    {% for error in errors.death_doctor %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_doctor_2" class=""> دکتر فوت دو </label>
+                                    <input autocomplete="off" id="death_doctor_2" value="{{ form_data.death_doctor_2 }}"
+                                           name="death_doctor_2" type="text"
+                                           class="form-control ">
+                                    {% for error in errors.death_doctor_2 %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_position" class=""> وضعیت تشخیص فوت </label>
+                                    <select id="death_position" name="death_position" class="form-control ">
+                                        <option value="999">انتخاب وضعیت تشخبص فوت</option>
+                                        {% for index in death_position %}
+                                            <option {% if form_data.death_position == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.death_position }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.death_position %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="death_to_heal" class=""> درمان تا فوت </label>
+                                    <select id="death_to_heal" name="death_to_heal" class="form-control ">
+                                        <option value="999">انتخاب درمان تا فوت</option>
+                                        {% for index in death_to_heal %}
+                                            <option {% if form_data.death_to_heal == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.death_to_heal }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.death_to_heal %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="part" class=""> بخش </label>
+                                    <select id="part" name="part"
+                                            class="form-control ">
+                                        <option value="999">انتخاب بخش</option>
+                                        {% for index in part %}
+                                            <option {% if form_data.part == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.part }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.part %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="part_name" class=""> شماره بخش </label>
+                                    <select id="part_name" name="part_name" class="form-control ">
+                                        <option value="999">انتخاب شماره بخش</option>
+                                        {% for index in part_name %}
+                                            <option {% if form_data.part_name == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.part_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.part_name %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="room_number" class=""> شماره اتاق </label>
+                                    <select id="room_number" name="room_number" class="form-control ">
+                                        <option value="999">انتخاب شماره اتاق</option>
+                                        {% for index in room_number %}
+                                            <option {% if form_data.room_number == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.room_number }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.room_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="bed_number" class=""> شماره تخت </label>
+                                    <select id="bed_number" name="bed_number"
+                                            class="form-control ">
+                                        <option value="999">انتخاب شماره تخت</option>
+                                        {% for index in bed_number %}
+                                            <option {% if form_data.bed_number == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.bed_number }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.bed_number %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="referral_code" class=""> کد ارجاع </label>
+                                    <select id="referral_code"
+                                            name="referral_code"
+                                            class="form-control ">
+                                        <option value="999">انتخاب کد ارجاع</option>
+                                        {% for index in referral_code %}
+                                            <option {% if form_data.referral_code == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.referral_code }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.referral_code %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="form-group">
+                                    <label for="referral_description" class=""> دلیل ارجاع </label>
+                                    <select id="referral_description"
+                                            name="referral_description"
+                                            class="form-control ">
+                                        <option value="999">انتخاب دلیل ارجاع</option>
+                                        {% for index in referral_description %}
+                                            <option {% if form_data.referral_description == index.id|stringformat:"i" %}selected{% endif %}
+                                                    value="{{ index.id }}">
+                                                {{ index.referral_description }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% for error in errors.referral_description %}
+                                        <span class="help-block m-b-none text-danger">
+                                            {{ error }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {#                            {#                            <div class="col-sm-3">#}
+                            {#                            {#                                <div class="form-group">#}
+                            {#                            {#                                    <label class=""> شهر </label>#}
+                            {#                            {#                                    <input type="text" class="form-control ">#}
+                            {#                            {#                                </div>#}
+                            {#                            {#                            </div>#}
+                            {#                            {#                            <div class="col-sm-3">#}
+                            {#                            {#                                <div class="form-group">#}
+                            {#                            {#                                    <label class=""> آدرس </label>#}
+                            {#                            {#                                    <input type="text" class="form-control ">#}
+                            {#                            {#                                </div>#}
+                            {#                            </div>#}
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <button class="btn btn-white col-sm-2" type="submit"> لغو</button>
+                                    <button class="btn btn-primary col-sm-2" type="submit"> افزودن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/persianDatepicker.min.js' %}"></script>
+    <script>
+        {% if form_data.province %}
+            findProvince(province_name = "{{ form_data.province }}")
+        {% endif %}
+
+        function findProvince(province_name = "") {
+            document.getElementById("province").value = ''
+            document.getElementById("city").value = ''
+            const country = document.getElementById("country")
+            const province = document.getElementById("province_list")
+            let country_name = country.value
+
+            performAjaxRequest("{% url 'find_province' %}", {'country_name': country_name}, function (response) {
+                province.innerHTML = ''
+                for (let i = 0; i < response.length; i++) {
+                    if (province_name == response[i].name) {
+                        province.innerHTML += `
+                            <option selected value="${response[i].name}">${response[i].name}</option>
+                        `
+                    } else {
+                        province.innerHTML += `
+                            <option value="${response[i].name}">${response[i].name}</option>
+                        `
+                    }
+                }
+            })
+        }
+
+        {% if form_data.city %}
+            findCity(p_name = "{{ form_data.province }}", city_name = "{{ form_data.city }}")
+        {% endif %}
+
+        function findCity(p_name = "", city_name = "") {
+            document.getElementById("city").value = ''
+            const province = document.getElementById("province")
+            const city = document.getElementById("city_list")
+            let province_name = province.value
+
+            if (p_name !== "") {
+                province_name = p_name
+            }
+
+            performAjaxRequest("{% url 'find_city' %}", {'province_name': province_name}, function (response) {
+                city.innerHTML = ''
+                for (let i = 0; i < response.length; i++) {
+                    if (city_name == response[i].name) {
+                        city.innerHTML += `
+                            <option selected value="${response[i].name}">${response[i].name}</option>
+                        `
+                    } else {
+                        city.innerHTML += `
+                            <option value="${response[i].name}">${response[i].name}</option>
+                        `
+                    }
+
+                }
+            })
+        }
+
+        $(function () {
+            $("#birthday,#insurance_credit,#supplementary_insurance_credit,#date_of_filing,#file_update_date,#death_day").persianDatepicker();
+        });
+        $("#birthday,#insurance_credit,#supplementary_insurance_credit,#date_of_filing,#file_update_date,#death_day").persianDatepicker({
+
+            // month names
+            months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+
+            // week names
+            dowTitle: ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"],
+
+            // short week names
+            shortDowTitle: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
+
+            // shows Gregorian date
+            showGregorianDate: false,
+
+            // persian numbers
+            persianNumbers: true,
+            /*
+            YYYY  =>   year             : 1394  -  ...
+            MM    =>   month            : 1     -  12
+            DD    =>   day              : 1     -  30|31
+            0M    =>   month with zero  : 01    -  12
+            0D    =>   day  with zero   : 01    -  30|31
+            hh    =>   hour             : 0     -  23
+            mm    =>   minute           : 0     -  59
+            ss    =>   second           : 0     -  59
+            ms    =>   milisecond       : 0     -  3 digit random time of cpu like 359
+            NM    =>   name of month    : اسفند-فروردین
+            DW    =>   day of week      : 0     -  6
+            ND    =>   name of day      : جمعه-شنبه
+            */
+            formatDate: "YYYY/MM/DD",
+
+            // selected before
+            selectedBefore: false,
+
+            // '1394/11/12'
+            selectedDate: null,
+
+            // '1394/11/12'
+            startDate: null,
+
+            // '1395/5/5'
+            endDate: null,
+
+            // prev/next arrows
+            prevArrow: '\u25c4',
+            nextArrow: '\u25ba',
+
+            // 'dark', 'latoja', 'lightorange', 'melon'
+            theme: 'default',
+
+            // always show
+            alwaysShow: !1,
+
+            // selectable years
+            selectableYears: null,
+
+            // selectable months
+            selectableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+
+            // in pixles
+            cellWidth: 25,
+            cellHeight: 20,
+            fontSize: 13,
+
+            // RTL mode
+            isRTL: false,
+
+            // close on blur
+            closeOnBlur: true,
+
+            // position of the calendar
+            calendarPosition: {
+                x: 0,
+                y: 0,
+            },
+
+            // callback functions
+            onShow: function () {
+            },
+            onHide: function () {
+            },
+            onSelect: function () {
+            },
+            onRender: function () {
+            }
+
+        });
+    </script>
+{% endblock %}
