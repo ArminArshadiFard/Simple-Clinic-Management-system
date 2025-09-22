@@ -1,4 +1,4 @@
-# Simple-Clinic-Management-system
+# Simple Clinic Management system
 
 A simple Django website (template) that that is made to manage a clinic and to track its patients.
 
